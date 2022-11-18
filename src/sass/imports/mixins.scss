@@ -1,0 +1,38 @@
+@import './variables.scss';
+@mixin flex($a, $b, $c, $d, $e) {
+  display: flex;
+  flex-direction: $a;
+  flex-wrap: $b;
+  justify-content: $c;
+  align-items: $d;
+  gap: $e;
+}
+@mixin responsive($width: 1000px) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
+@mixin pokedex() {
+  clip-path: polygon(29% 0, 65% 21%, 100% 21%, 100% 100%, 0 100%, 0 0);
+}
+@mixin background() {
+  background: linear-gradient(
+    180deg,
+    $input-border-suave,
+    $input-focus-suave,
+    $input-border-suave
+  );
+}
+@mixin button() {
+  padding: 0.5em 0.8em;
+  font-size: 1.1em;
+  color: $color-white;
+  background: transparent;
+  border-bottom: 3px solid $input-border;
+  transition: 0.5s ease;
+  &:hover {
+    border: 2px solid $input-border;
+    border-radius: 1em;
+    @include background();
+  }
+}

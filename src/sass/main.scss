@@ -1,0 +1,509 @@
+@import './imports/reset.scss', './imports/mixins.scss', './imports/fonts.scss',
+  './imports/variables.scss';
+.cards {
+}
+.card {
+  @include flex(row, wrap, center, center, 0.5em);
+  &__map {
+    width: 15em;
+    height: 15.5em;
+    background: $color-marron-fort;
+    border-radius: 3em;
+  }
+  &__top {
+    @include flex(column, nowrap, center, center, 0);
+    border-radius: 1em 1em 0 1em;
+    background: linear-gradient(0deg, $yello-pokemon 0%, $blue-pokemon 100%);
+    clip-path: ellipse(100% 55% at 48% 45%);
+  }
+  &__h2 {
+    text-align: center;
+    font-size: 2em;
+    text-decoration: 0.1em $yello-pokemon underline;
+  }
+  &__img {
+    width: 10em;
+    align-self: center;
+    filter: drop-shadow(0.5em 0.5em 0.1em $oscuro);
+    cursor: pointer;
+  }
+  &__bottom {
+    padding: 0 1em;
+  }
+  &__types {
+    @include flex(column, nowrap, space-between, center, 0);
+  }
+  &__type {
+    // background: blue;
+  }
+  &__h2-type {
+    text-decoration: 2px $blue-pokemon underline;
+    margin: 0 0 0.3em 0;
+  }
+  &__div-type {
+    @include flex(row, nowrap, space-around, center, 0.8em);
+  }
+  &__img-type {
+    width: 2.5em;
+    height: 2.5em;
+    filter: drop-shadow(0.2em 0.2em 0.1em $oscuro);
+  }
+  &__modal {
+    background: $yello-pokemon;
+    border-radius: 5em;
+    padding: 2em;
+    //TODO SI MOLESTA EL PADING LO HACEMOS MENOR
+    color: $blue-pokemon;
+    height: 90vh;
+    width: 90vw;
+    margin: 2em;
+    position: absolute;
+    align-self: flex-start;
+    transform: scale(0);
+    animation-name: modal_open;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    z-index: 10;
+  }
+
+  &__close {
+    fill: $blue-pokemon;
+    cursor: pointer;
+    position: relative;
+    height: 2em;
+  }
+  &__modal-close {
+    animation-name: modal_close;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    z-index: 10;
+  }
+  &__button {
+    position: absolute;
+    right: 0;
+    height: 2em;
+    width: 2em;
+  }
+  @keyframes modal_open {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  @keyframes modal_close {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(0);
+    }
+  }
+}
+.pokemon {
+  &__map {
+    @include flex(row, nowrap, center, center, 0);
+  }
+  &__left {
+    flex-grow: 1;
+    height: calc(90vh - 14em);
+    max-width: 25.695em;
+  }
+  &__right {
+    flex-grow: 1;
+    max-width: 25.695em;
+    height: calc(90vh - 14em);
+    min-width: 25em;
+  }
+  &__pokedexl {
+    height: 82%;
+    background: $color-pokedexr;
+    @include flex(row, nowrap, end, center, 0);
+    position: relative;
+    &-linear {
+      width: 2.5em;
+      height: 100%;
+      @include flex(row, nowrap, space-between, center, 0);
+      &-purpura {
+        width: 1em;
+        height: 100%;
+        background-color: $pokedex-shadow;
+        justify-self: flex-end;
+      }
+      &-orange {
+        width: 0.5em;
+        height: 100%;
+        margin: 0 0 0 0.5em;
+        background-color: #fd8e73;
+      }
+    }
+    &-left {
+      height: 100%;
+      @include flex(column, nowrap, end, center, 0);
+      width: 100%;
+    }
+    &-contain-div-button {
+      position: absolute;
+      left: 0.5em;
+      top: 2.2em;
+      width: 6em;
+      height: 6em;
+      border: 5px ridge $blue-pokemon;
+      border-radius: 50%;
+      align-self: flex-start;
+      justify-self: center;
+      z-index: 5;
+    }
+    &-contain-button {
+      width: 100%;
+      height: 100%;
+      border: 10px solid #fff;
+      border-radius: 50%;
+    }
+    &-button {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid $color-result;
+      background: #00dde1;
+    }
+    &-background {
+      height: 87.61%;
+      background: $pokedex-shadow;
+      clip-path: polygon(31% 20%, 69% 0, 100% 0, 100% 100%, 0 100%, 0 20%);
+      width: 100%;
+      @include flex(row, nowrap, end, end, 0);
+    }
+    &-backgroundfalse {
+      height: 95%;
+      background: $color-pokedexl;
+      clip-path: polygon(31% 20%, 69% 0, 100% 0, 100% 100%, 0 100%, 0 20%);
+      width: 100%;
+      @include flex(column, nowrap, center, center, 0);
+      //TODO FIJARSE SI ES EL QUE CAUSA PROBLEMAS EN ESTE LADO
+    }
+    &-container {
+      background: $color-pokedexl;
+      clip-path: polygon(31% 20%, 69% 0, 100% 0, 100% 100%, 0 100%, 0 20%);
+      position: relative;
+      height: 100%;
+      width: 85%;
+      border: 0.5em solid $pokedex-shadow;
+      @include flex(column, nowrap, center, end, 0);
+      &-top {
+        background: #fff;
+        margin: 5.2em 0 0 0;
+        width: 90%;
+        height: 70%;
+        border-radius: 1em 1em 1em 5em;
+        &-buttons-red {
+          padding: 0.2em 0 0.5em;
+          @include flex(row, nowrap, center, center, 0.5em);
+        }
+        &-red {
+          border: 1px solid $oscuro;
+          width: 0.5em;
+          height: 0.5em;
+          background: $color-red-afable;
+          border-radius: 50%;
+        }
+        &-div {
+          background: #00dde1;
+          margin: 0 1em;
+          height: 70%;
+          border-radius: 0.5em;
+          @include flex(column, nowrap, center, center, 0);
+        }
+        &-h2 {
+          align-self: flex-start;
+          padding: 0 0 0 0.8em;
+        }
+        &-img {
+          width: 8em;
+          height: 8em;
+        }
+        &--container {
+          @include flex(row, nowrap, space-between, center, 0);
+        }
+        &--div {
+          background: red;
+          width: 2em;
+          height: 2em;
+          margin: 0 0 0 3em;
+          border-radius: 50%;
+          border: 2px solid $color-button-end;
+        }
+        &--bot {
+        }
+        &--line {
+          width: 6em;
+          height: 0.4em;
+          border-radius: 0.5em;
+          margin: 0.5em 1.5em 0 0;
+          background: $color-button-end;
+        }
+      }
+      &-bottom {
+        height: 30%;
+        width: 100%;
+        @include flex(row, nowrap, center, center, 0);
+        &-container {
+          flex-grow: 2.5;
+          @include flex(column, nowrap, space-between, space-between, 1em);
+        }
+        &-top {
+          @include flex(row, nowrap, space-evenly, center, 0);
+        }
+        &-circle {
+          width: 3em;
+          height: 3em;
+          border-radius: 50%;
+          background: #00dde1;
+          box-shadow: 0.3em 0.3em 0.3em #000;
+        }
+        &-button {
+          width: 3em;
+          height: 0.8em;
+          border-radius: 1em;
+          background: green;
+        }
+        &-button:nth-child(3) {
+          width: 3em;
+          height: 0.8em;
+          border-radius: 1em;
+          background: goldenrod;
+        }
+        &-bottom {
+          @include flex(row, nowrap, center, center, 0);
+        }
+        &-rect {
+          width: 10em;
+          height: 3em;
+          border-radius: 1em;
+          background: $yello-pokemon;
+        }
+        &-jostick {
+          flex-grow: 1;
+          width: 20%;
+          height: 100%;
+          clip-path: polygon(
+            0 25%,
+            35% 25%,
+            35% 0%,
+            65% 0%,
+            65% 25%,
+            100% 25%,
+            100% 50%,
+            65% 50%,
+            65% 76%,
+            35% 76%,
+            35% 50%,
+            0 50%
+          );
+          background: $color-button-end;
+          margin: 1.5em 0.5em 0 0;
+        }
+        &--container {
+          @include flex(row, nowrap, space-between, center, 0.5em);
+          margin: 0.2em 0 0 0;
+        }
+        &-div {
+          width: 100%;
+          height: 25%;
+          cursor: pointer;
+          text-align: center;
+        }
+        &-div:nth-child(3) {
+          margin: 0.4em 0 0 0;
+        }
+      }
+    }
+  }
+  &__div-types {
+    @include flex(row, nowrap, center, center, 0.6em);
+  }
+  &__pokedexr {
+    height: 72%;
+    @include pokedex();
+    margin: 4.2em 0 0 0;
+    background: $color-pokedexr;
+    @include flex(row, nowrap, center, center, 0);
+  }
+  &__moves {
+    @include flex(column, nowrap, center, flex-start, 0.2em);
+    overflow: auto;
+    height: 3em;
+    width: 10em;
+    & div {
+      transform: translateY(2.4em);
+    }
+  }
+  &__image {
+    width: 2.5em;
+    margin: 0 0.5em 0 0;
+  }
+  &__border {
+    margin: 2em;
+    width: 100%;
+    background: $pokedex-shadow;
+    @include pokedex();
+    height: 84%;
+    @include flex(row, nowrap, center, center, 0);
+  }
+  &__border-container {
+    height: 96%;
+    width: 95%;
+    @include pokedex();
+    background: $color-pokedexr;
+    @include flex(column, nowrap, center, center, 0);
+  }
+  &__topr {
+    width: 100%;
+    @include flex(column, nowrap, center, center, 0);
+    margin: 5em 0 0 0;
+  }
+  &__results {
+    background: $color-result;
+    border-radius: 1em;
+    width: 80%;
+    height: 3em;
+    @include flex(row, nowrap, center, center, 0);
+    color: #fff;
+  }
+  &__spanr {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  &__buttons {
+    width: 80%;
+    height: 4em;
+    margin: 1em 0 0 0;
+  }
+  &__buton {
+    font-weight: bold;
+    font-family: 'Exo';
+    width: 20%;
+    height: 2em;
+    padding: 0;
+    border: 0.1px solid #222;
+    background: $color-buttons;
+  }
+  &__buton:nth-child(1) {
+    border-radius: 1em 0 0 0;
+  }
+  &__buton:nth-child(5) {
+    border-radius: 0 1em 0 0;
+  }
+  &__buton:nth-child(6) {
+    border-radius: 0 0 0 1em;
+  }
+  &__buton:nth-child(10) {
+    border-radius: 0 0 1em 0;
+  }
+
+  &__bottomr {
+    @include flex(column, nowrap, center, center, 0);
+    width: 100%;
+    padding: 0 2.5em;
+    &-ray {
+      align-self: flex-end;
+      @include flex(row, nowrap, center, center, 0);
+      &-button {
+        width: 2em;
+        margin: 0.5em;
+        border-radius: 2em;
+        background: $color-button-end;
+      }
+    }
+    &-three {
+      width: 100%;
+      @include flex(row, nowrap, space-between, center, 0);
+      &-buttonl {
+        height: 1.5em;
+        width: 5em;
+        border-radius: 0.5em;
+        margin: 0.3em;
+        box-shadow: 0.3em 0.3em 0 #000;
+      }
+      &-buttonr {
+        height: 2.5em;
+        width: 2.5em;
+        border-radius: 50%;
+        background: $yello-pokemon;
+        border: 2px solid $color-button-end;
+        margin: 0.5em 0 0 0;
+      }
+    }
+    &-end {
+      width: 100%;
+      @include flex(row, nowrap, space-evenly, center, 0);
+      &-button {
+        margin: 2.5em 0;
+        width: 7em;
+        border-radius: 0.5em;
+        height: 2.5em;
+        background: $color-button-end;
+      }
+    }
+  }
+}
+.header {
+  margin: 0;
+  padding: 0;
+  height: 4em;
+  &__header {
+  }
+  &__div {
+    @include flex(column, nowrap, flex-start, center, 0);
+    position: relative;
+  }
+  &__form {
+  }
+  &__input {
+    padding: 0.4em 0.7em;
+    font-size: 1em;
+    border-radius: 1em;
+    background: $blue-pokemon;
+    border: 2px solid $yello-pokemon;
+    color: $color-white;
+    font-family: 'Exo';
+  }
+  &__barra {
+    max-height: 20em;
+    min-height: 3em;
+    overflow: auto;
+    width: 12em;
+    position: absolute;
+    z-index: 2;
+    top: 2.5em;
+    padding: 0.5em 1em;
+    border: 2px solid $yello-pokemon;
+    background: $color-body;
+  }
+  &__map {
+    cursor: pointer;
+    min-height: 3em;
+    max-width: 9.5em;
+    height: 2.5em;
+    @include flex(row, nowrap, space-between, center, 0);
+    border-bottom: 1px solid #fff;
+    // margin: 0 0 0.1em 0;
+  }
+  &__span {
+  }
+  &__img {
+    width: 3em;
+    height: 3em;
+  }
+}
+.features {
+  @include flex(row, nowrap, space-between, center, 0);
+  padding: 0 0.8em;
+  &__span {
+    font-size: 1.05em;
+  }
+  &__span:nth-child(2) {
+    font-weight: bold;
+  }
+}
