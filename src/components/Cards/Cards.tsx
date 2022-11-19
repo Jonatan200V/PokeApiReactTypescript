@@ -1,17 +1,30 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../../hooks/useAppContext';
 import useFecthPokemons from '../../hooks/useFecthPokemons';
 import Card from '../Card/Card';
-setTimeout(() => {
-  console.clear();
-}, 6000);
+import Filter from '../Filter/Filter';
+import Help from '../Help/Help';
+
 const Cards = () => {
+  const { allPokemon, pokemonsFilters, typesFilters, addTypes } =
+    useAppContext();
   useFecthPokemons();
-  const { allPokemon, filtersPokemonName } = useAppContext();
-  filtersPokemonName();
+  const [v, set] = useState(false);
+  useEffect(() => {
+    if (allPokemon.length === 100 && v === false) {
+      addTypes();
+      set(true);
+    }
+  }, [v, addTypes, allPokemon]);
   return (
     <div className='cards'>
-      <Card allPokemon={allPokemon} />
+      <Help />
+      {typesFilters.length >= 1 ? (
+        <Card allPokemon={pokemonsFilters} />
+      ) : (
+        <Card allPokemon={allPokemon} />
+      )}
+      <Filter />
     </div>
   );
 };

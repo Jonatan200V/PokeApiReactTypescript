@@ -1,5 +1,6 @@
 import React from 'react';
-import { nextPrev, pokemon } from '../../types/types';
+import { useAppContext } from '../../hooks/useAppContext';
+import { pokemon } from '../../types/types';
 import {
   arrowBottom,
   arrowLeft,
@@ -8,9 +9,9 @@ import {
 } from '../../utils/icons/icons';
 interface PokedexRightProps {
   pokemon: pokemon;
-  onClickChangePokemon: (id: number, name: nextPrev) => void;
 }
-const PokedexRight = ({ pokemon, onClickChangePokemon }: PokedexRightProps) => {
+const PokedexRight = ({ pokemon }: PokedexRightProps) => {
+  const { changeCardModal } = useAppContext();
   return (
     <div className='pokemon__left'>
       <div className='pokemon__pokedexl'>
@@ -66,27 +67,27 @@ const PokedexRight = ({ pokemon, onClickChangePokemon }: PokedexRightProps) => {
                   </div>
                   <div className='pokemon__pokedexl-container-bottom-jostick'>
                     <div
-                      onClick={() => onClickChangePokemon(pokemon.id, 'next')}
+                      onClick={() => changeCardModal(pokemon.id, 'next')}
                       className='pokemon__pokedexl-container-bottom-div'
                     >
                       {arrowTop}
                     </div>
                     <div className='pokemon__pokedexl-container-bottom--container'>
                       <div
-                        onClick={() => onClickChangePokemon(pokemon.id, 'prev')}
+                        onClick={() => changeCardModal(pokemon.id, 'prev')}
                         className='pokemon__pokedexl-container-bottom-div'
                       >
                         {arrowLeft}
                       </div>
                       <div
-                        onClick={() => onClickChangePokemon(pokemon.id, 'next')}
+                        onClick={() => changeCardModal(pokemon.id, 'next')}
                         className='pokemon__pokedexl-container-bottom-div'
                       >
                         {arrowRight}
                       </div>
                     </div>
                     <div
-                      onClick={() => onClickChangePokemon(pokemon.id, 'prev')}
+                      onClick={() => changeCardModal(pokemon.id, 'prev')}
                       className='pokemon__pokedexl-container-bottom-div'
                     >
                       {arrowBottom}

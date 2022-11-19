@@ -1,6 +1,26 @@
 @import './imports/reset.scss', './imports/mixins.scss', './imports/fonts.scss',
   './imports/variables.scss';
+.app {
+  @include flex(row, nowrap, start, start, 0);
+  // width: 100vw;
+}
 .cards {
+  max-width: 85em;
+  min-width: 85vw;
+  min-height: 70vh;
+  overflow: hidden;
+  position: relative;
+}
+.filt {
+  position: absolute;
+  z-index: 100;
+  right: 0.5em;
+  top: 0;
+  @include flex(column, nowrap, center, center, 0.5em);
+  &__img {
+    width: 2.5em;
+    height: 2.5em;
+  }
 }
 .card {
   @include flex(row, wrap, center, center, 0.5em);
@@ -57,13 +77,13 @@
     height: 90vh;
     width: 90vw;
     margin: 2em;
-    position: absolute;
+    position: fixed;
     align-self: flex-start;
     transform: scale(0);
     animation-name: modal_open;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
-    z-index: 10;
+    z-index: 15;
   }
 
   &__close {
@@ -84,21 +104,42 @@
     height: 2em;
     width: 2em;
   }
-  @keyframes modal_open {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
+}
+.buttons {
+  margin: 1.5em 0;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  @include flex(row, nowrap, center, center, 0.5em);
+  cursor: pointer;
+  &__button {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-sizing: border-box;
+    background: $blue-pokemon;
+    color: $yello-pokemon;
+    border: 2px solid $blue-pokemon;
+    transition: 0.2s linear;
+    @include flex(row, nowrap, center, center, 0);
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+      border: 2px solid $yello-pokemon;
+      cursor: pointer;
     }
   }
-  @keyframes modal_close {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(0);
-    }
+  &__index {
+    color: $yello-pokemon;
+    background: $blue-pokemon;
+    padding: 0.5em;
+    font-weight: bold;
+  }
+  &__select {
+    background: $yello-pokemon;
+    color: $blue-pokemon;
   }
 }
 .pokemon {
@@ -452,6 +493,11 @@
   margin: 0;
   padding: 0;
   height: 4em;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: $color-body;
+  @include flex(row, nowrap, center, center, 0);
   &__header {
   }
   &__div {
@@ -468,6 +514,7 @@
     border: 2px solid $yello-pokemon;
     color: $color-white;
     font-family: 'Exo';
+    margin: 0 0.3em;
   }
   &__barra {
     max-height: 20em;
@@ -497,6 +544,14 @@
     height: 3em;
   }
 }
+.filter {
+  @include flex(row, wrap, center, center, 0.2em);
+  &__img {
+    height: 1.5em;
+    width: 1.5em;
+    cursor: pointer;
+  }
+}
 .features {
   @include flex(row, nowrap, space-between, center, 0);
   padding: 0 0.8em;
@@ -505,5 +560,142 @@
   }
   &__span:nth-child(2) {
     font-weight: bold;
+  }
+}
+.help {
+  position: fixed;
+  height: 93.5vh;
+  overflow: hidden;
+  z-index: 1;
+  width: 14em;
+  background-color: $color-body;
+  transition: 0.5s ease;
+  transform: translateX(-11em);
+  @include flex(column, nowrap, start, end, 0);
+  &__view {
+    background: $blue-pokemon;
+    transform: translateX(0);
+    border-radius: 2em;
+  }
+  &__window {
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: 0.5s ease;
+    padding: 1em;
+  }
+  &__view--window {
+    opacity: 1;
+  }
+  &__helper {
+  }
+  &__open {
+    background: transparent;
+  }
+  &__img {
+    width: 3em;
+    height: 3em;
+  }
+  &__ul {
+  }
+  &__li {
+    font-size: 1.4em;
+    cursor: pointer;
+  }
+}
+.setting {
+  width: 25em;
+  height: 28em;
+  position: fixed;
+  top: calc(75vh - 28em);
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 2;
+  border-radius: 2em;
+  background: $yello-pokemon;
+  transform: scale(1);
+  transition: 0.5s ease;
+  &__button {
+    background: transparent;
+    position: absolute;
+    right: 0;
+    margin: 0;
+    padding: 0.1em 1.5em;
+    fill: $blue-pokemon;
+  }
+  &__close--modal {
+    transform: scale(0);
+  }
+}
+.type {
+  @include flex(column, nowrap, center, end, 0);
+  margin: 2.1em 0 0 0;
+}
+.types {
+  @include flex(row, nowrap, center, center, 0);
+  width: 25em;
+  &__div {
+    margin: 0 0 0 0;
+  }
+  &__map {
+    flex-grow: 1;
+    width: 12.5em;
+    @include flex(row, nowrap, space-between, center, 0);
+    box-sizing: border-box;
+    padding: 0.1em 0.8em;
+    color: $blue-pokemon;
+  }
+  &__span {
+    text-transform: uppercase;
+  }
+  &__img {
+    width: 3em;
+    height: 3em;
+  }
+}
+.info {
+  @include flex(column, nowrap, center, center, 0);
+  height: 100%;
+  &__h2 {
+    color: $blue-pokemon;
+    margin: 0;
+    padding: 0;
+    font-size: 1.6em;
+  }
+  &__p {
+    color: $blue-pokemon;
+    padding: 2em;
+  }
+  &__span {
+    font-weight: bold;
+  }
+}
+.about {
+  @include flex(column, nowrap, center, center, 0);
+  height: 100%;
+  &__h2 {
+    color: $blue-pokemon;
+  }
+  &__p {
+    color: $blue-pokemon;
+    padding: 2em 3em;
+  }
+}
+@keyframes modal_open {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes modal_close {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
   }
 }

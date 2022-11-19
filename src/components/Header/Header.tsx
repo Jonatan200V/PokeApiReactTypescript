@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../../hooks/useAppContext';
 import { pokemon } from '../../types/types';
+import Filters from '../Filters/Filters';
 import Searchs from '../Searchs/Searchs';
 interface HeaderState {
   search: string;
@@ -9,8 +10,8 @@ interface HeaderState {
 }
 
 const Header = () => {
-  const { allPokemon, handleClikcOpenModal } = useAppContext();
-
+  const { allPokemon, typesFilters, pokemonsFilters, handleClikcOpenModal } =
+    useAppContext();
   const [searchPokemon, setSearchPokemon] = useState<HeaderState['search']>('');
 
   const [pokemonsFiltered, setPokemonsFiltered] = useState<
@@ -18,11 +19,8 @@ const Header = () => {
   >([]);
 
   const [view, setView] = useState<HeaderState['view']>(0);
-
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-    const { value } = evt.currentTarget;
-    setSearchPokemon(value);
-    const pokemonFiltered = allPokemon.filter(
+  const prueba = (value: string, pokemosAll: pokemon[]): void => {
+    const pokemonFiltered = pokemosAll.filter(
       (pokemon) =>
         pokemon.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
     );
@@ -31,6 +29,14 @@ const Header = () => {
       return setView(1);
     }
     setView(0);
+  };
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value } = evt.currentTarget;
+    setSearchPokemon(value);
+    if (typesFilters.length > 0) {
+      return prueba(value, pokemonsFilters);
+    }
+    prueba(value, allPokemon);
   };
 
   const handleOnBlur = () => {
@@ -45,6 +51,7 @@ const Header = () => {
 
   return (
     <div className='header'>
+      <Filters value={0} value2={8} />
       <header className='header__header'>
         <div className='header__div'>
           <input
@@ -68,6 +75,7 @@ const Header = () => {
           </div>
         </div>
       </header>
+      <Filters value={8} value2={16} />
     </div>
   );
 };

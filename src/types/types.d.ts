@@ -83,7 +83,7 @@ export interface pokeAllValues {
   count: number;
   next: string;
   previous: null | string;
-  results: Object[nameUrl];
+  results: Array<nameUrl>;
 }
 export interface pokemon {
   name: string;
@@ -97,4 +97,10 @@ export interface pokemon {
   typesAll: string[];
   images: string;
   moves: string[];
+}
+
+export interface helpers {
+  id: number;
+  name: string;
+  component: any;
 }

@@ -8,8 +8,20 @@ body {
   color: $color-white;
   font-family: $font-principal, sans-serif;
   font-weight: 500;
-  overflow-x: hidden;
   background: $color-body;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+ul {
+  padding: 0;
+  margin: 0;
+}
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 select {
   border: none;
