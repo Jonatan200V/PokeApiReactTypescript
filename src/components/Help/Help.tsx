@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { puzzle, question } from '../../utils/icons/icons';
 import { helper } from '../../utils/types/types';
 // import { helper } from '../../utils/types/types';
 // import { helper } from '../../types/types';
@@ -32,6 +34,7 @@ const Help = () => {
   const changeModalZero = (id: number): void => {
     setSelected(id);
   };
+  //TODO SUGRENECIA PONERLE UNA IMAGEN AL LADO DE CADA LI
   return (
     <div className='app'>
       <div className='help' ref={helpRef}>
@@ -42,13 +45,21 @@ const Help = () => {
         </div>
         <div ref={windowRef} className='help__window'>
           <ul className='help__ul'>
+            <Link title='Puzzle' className='help__link ' to={`/puzzle-guess`}>
+              Guess {puzzle}
+            </Link>
+            <Link title='Puzzle' className='help__link ' to={`/puzzle-memory`}>
+              Memory {puzzle}
+            </Link>
             {helper.map((help) => (
               <li
+                title='Help'
                 onClick={() => handleChangeModalHelp(help.id)}
-                className='help__li'
+                className='help__li '
                 key={help.id}
               >
                 {help.name}
+                {question}
               </li>
             ))}
           </ul>

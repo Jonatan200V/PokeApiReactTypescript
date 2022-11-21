@@ -6,6 +6,7 @@ import Modal from '../Modal/Modal';
 interface CardProps {
   allPokemon: pokemon[];
 }
+//TODO HACER UN STATE DE CARGA
 interface CardState {
   paginated: {
     value1: number;
@@ -29,6 +30,7 @@ const Card = ({ allPokemon }: CardProps) => {
       value1: 0,
       value2: 16,
     });
+    setSelected(0);
   }, [allPokemon.length]);
   useEffect(() => {
     let buttonArray: number[] = [];
@@ -38,7 +40,6 @@ const Card = ({ allPokemon }: CardProps) => {
     setButtons(buttonArray);
   }, [button]);
   const { handleClikcOpenModal, modal, cardModal } = useAppContext();
-
   const handleClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = evt.currentTarget;
     if (name === 'next') {

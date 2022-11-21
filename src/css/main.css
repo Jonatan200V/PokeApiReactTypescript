@@ -101,6 +101,192 @@ li {
   position: relative;
 }
 
+.puzzle {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  height: 100vh;
+}
+.puzzle__map {
+  background: url(../../public/assets/pokemon.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 30em;
+  height: 30em;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+.puzzle__img {
+  filter: brightness(0);
+  width: 15em;
+  height: 15em;
+  align-self: flex-start;
+}
+.puzzle__ul {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: start;
+  align-items: start;
+  gap: 0.5em;
+}
+.puzzle__li {
+  background: #3761a8;
+  text-transform: uppercase;
+  padding: 0.5em 1.5em;
+  width: 100%;
+  border: 1px solid #feca1b;
+  cursor: pointer;
+  transition: 0.5s ease;
+  transform: scale(1);
+}
+.puzzle__li:hover {
+  transform: scale(1.1);
+}
+
+.memory {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  height: 100vh;
+  background-color: transparent;
+  perspective: 1000px;
+}
+.memory__container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(10em, 1fr));
+  gap: 0.5em;
+}
+.memory__div {
+  position: relative;
+  text-align: center;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  width: 10em;
+  height: 10em;
+  cursor: pointer;
+}
+.memory__img, .memory__back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #feca1b;
+  border-radius: 2em;
+}
+.memory__back {
+  background: #3761a8;
+}
+.memory__img {
+  transform: rotateY(180deg);
+}
+.memory__card {
+  transform: rotateY(180deg);
+  border-radius: 2em;
+}
+.memory__decrementador {
+  width: 10em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+
+.portal {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  transition: 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+.portal__div {
+  background: #fff;
+  border-radius: 2em;
+  color: #000;
+  width: 15em;
+  height: 15em;
+  font-size: 1.1em;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+.portal__modal {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.portal__info {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.portal__button {
+  padding: 0.4em 0.6em;
+  margin: 0.2em 0.5em;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 1em;
+  background: #3761a8;
+  color: #feca1b;
+  border: 1px solid #feca1b;
+}
+
+.decrementador {
+  align-self: center;
+  height: 30em;
+  margin: 0.5em;
+  text-align: center;
+}
+.decrementador__count {
+  padding: 0.5em 0.8em;
+  font-size: 2em;
+  border-radius: 50%;
+  border: 3px solid #3761a8;
+  font-weight: bold;
+  height: 2.5em;
+  width: 2.5em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+.decrementador__asertions {
+  padding: 0.5em 0.8em;
+  font-size: 1em;
+  border: 3px solid #3761a8;
+  font-weight: bold;
+  margin: 0.5em 0 0 0;
+  text-align: center;
+}
+
 .filt {
   position: absolute;
   z-index: 100;
@@ -125,6 +311,12 @@ li {
   justify-content: center;
   align-items: center;
   gap: 0.5em;
+  min-height: 760px;
+}
+@media (max-width: 1056px) {
+  .card {
+    min-height: 1102px;
+  }
 }
 .card__map {
   width: 15em;
@@ -850,6 +1042,14 @@ li {
 .help__view--window {
   opacity: 1;
 }
+.help__helper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3em;
+}
 .help__open {
   background: transparent;
 }
@@ -857,9 +1057,26 @@ li {
   width: 3em;
   height: 3em;
 }
+.help__link {
+  color: #feca1b;
+  font-size: 1.4em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+}
 .help__li {
   font-size: 1.4em;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+  color: #f2ecec;
 }
 
 .setting {
@@ -873,7 +1090,7 @@ li {
   z-index: 2;
   border-radius: 2em;
   background: #feca1b;
-  transform: scale(1);
+  transform: scale(0);
   transition: 0.5s ease;
 }
 .setting__button {
@@ -885,7 +1102,7 @@ li {
   fill: #3761a8;
 }
 .setting__close--modal {
-  transform: scale(0);
+  transform: scale(1);
 }
 
 .type {

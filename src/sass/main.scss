@@ -11,6 +11,150 @@
   overflow: hidden;
   position: relative;
 }
+.puzzle {
+  @include flex(row, nowrap, center, center, 0);
+  height: 100vh;
+
+  &__map {
+    background: url(../../public/assets/pokemon.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 30em;
+    height: 30em;
+    @include flex(column, nowrap, center, center, 0);
+  }
+  &__img {
+    filter: brightness(0);
+    width: 15em;
+    height: 15em;
+    align-self: flex-start;
+  }
+  &__ul {
+    padding: 1em;
+    @include flex(column, nowrap, start, start, 0.5em);
+  }
+  &__li {
+    background: $blue-pokemon;
+    text-transform: uppercase;
+    padding: 0.5em 1.5em;
+    width: 100%;
+    border: 1px solid $yello-pokemon;
+    cursor: pointer;
+    transition: 0.5s ease;
+    transform: scale(1);
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+.memory {
+  @include flex(row, nowrap, center, center, 0);
+  height: 100vh;
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(10em, 1fr));
+    gap: 0.5em;
+  }
+  background-color: transparent;
+  perspective: 1000px;
+  &__div {
+    position: relative;
+    text-align: center;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    width: 10em;
+    height: 10em;
+    cursor: pointer;
+  }
+  &__img,
+  &__back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $yello-pokemon;
+    border-radius: 2em;
+  }
+  &__back {
+    background: $blue-pokemon;
+  }
+  &__img {
+    transform: rotateY(180deg);
+  }
+  &__card {
+    transform: rotateY(180deg);
+    border-radius: 2em;
+  }
+  &__decrementador {
+    width: 10em;
+    @include flex(row, nowrap, center, center, 0);
+  }
+}
+.portal {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  transition: 0.5s ease;
+  @include flex(column, nowrap, center, center, 0);
+  &__div {
+    background: #fff;
+    border-radius: 2em;
+    color: #000;
+    width: 15em;
+    height: 15em;
+    font-size: 1.1em;
+    text-align: center;
+    @include flex(column, nowrap, center, center, 0);
+  }
+  &__modal {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  &__info {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  &__button {
+    padding: 0.4em 0.6em;
+    margin: 0.2em 0.5em;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 1em;
+    background: $blue-pokemon;
+    color: $yello-pokemon;
+    border: 1px solid $yello-pokemon;
+  }
+}
+.decrementador {
+  align-self: center;
+  height: 30em;
+  margin: 0.5em;
+  text-align: center;
+  &__count {
+    padding: 0.5em 0.8em;
+    font-size: 2em;
+    border-radius: 50%;
+    border: 3px solid $blue-pokemon;
+    font-weight: bold;
+    height: 2.5em;
+    width: 2.5em;
+    @include flex(row, nowrap, center, center, 0);
+  }
+  &__asertions {
+    padding: 0.5em 0.8em;
+    font-size: 1em;
+    border: 3px solid $blue-pokemon;
+    font-weight: bold;
+    margin: 0.5em 0 0 0;
+    text-align: center;
+  }
+}
 .filt {
   position: absolute;
   z-index: 100;
@@ -24,6 +168,10 @@
 }
 .card {
   @include flex(row, wrap, center, center, 0.5em);
+  min-height: 760px;
+  @include responsive(1056px) {
+    min-height: 1102px;
+  }
   &__map {
     width: 15em;
     height: 15.5em;
@@ -589,6 +737,7 @@
     opacity: 1;
   }
   &__helper {
+    @include flex(column, nowrap, center, center, 0.3em);
   }
   &__open {
     background: transparent;
@@ -599,9 +748,16 @@
   }
   &__ul {
   }
+  &__link {
+    color: $yello-pokemon;
+    font-size: 1.4em;
+    @include flex(row, nowrap, space-between, center, 0);
+  }
   &__li {
     font-size: 1.4em;
     cursor: pointer;
+    @include flex(row, nowrap, space-between, center, 0);
+    color: $color-white;
   }
 }
 .setting {
@@ -615,7 +771,7 @@
   z-index: 2;
   border-radius: 2em;
   background: $yello-pokemon;
-  transform: scale(1);
+  transform: scale(0);
   transition: 0.5s ease;
   &__button {
     background: transparent;
@@ -626,7 +782,7 @@
     fill: $blue-pokemon;
   }
   &__close--modal {
-    transform: scale(0);
+    transform: scale(1);
   }
 }
 .type {

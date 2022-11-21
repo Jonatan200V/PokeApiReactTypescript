@@ -12,16 +12,16 @@ const Settings = ({ selected, openModal, changeModalZero }: SettingsProps) => {
   const divRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (selected !== 0) {
-      divRef.current?.classList.remove('setting__close--modal');
+      divRef.current?.classList.add('setting__close--modal');
     }
   }, [selected]);
   useEffect(() => {
     if (openModal === false) {
-      divRef.current?.classList.add('setting__close--modal');
+      divRef.current?.classList.remove('setting__close--modal');
     }
   }, [openModal]);
   const handleClick = (): void => {
-    divRef.current?.classList.add('setting__close--modal');
+    divRef.current?.classList.remove('setting__close--modal');
     changeModalZero(0);
   };
   const viewOption = helper.filter((help) => help.id === selected);
