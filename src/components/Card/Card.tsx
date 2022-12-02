@@ -113,7 +113,7 @@ const Card = ({ allPokemon }: CardProps) => {
                     <div key={type} className='card__type'>
                       <img
                         className='card__img-type'
-                        src={`../assets/types/${type}.png`}
+                        src={`../assets/Types/${type}.png`}
                         alt={type}
                         loading='lazy'
                       />
