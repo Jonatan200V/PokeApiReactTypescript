@@ -100,6 +100,7 @@
   width: 100vw;
   top: 0;
   left: 0;
+  backdrop-filter: blur(1em);
   transition: 0.5s ease;
   @include flex(column, nowrap, center, center, 0);
   &__div {
@@ -231,7 +232,7 @@
     animation-name: modal_open;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
-    z-index: 15;
+    z-index: 300;
   }
 
   &__close {

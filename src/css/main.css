@@ -215,6 +215,7 @@ li {
   width: 100vw;
   top: 0;
   left: 0;
+  backdrop-filter: blur(1em);
   transition: 0.5s ease;
   display: flex;
   flex-direction: column;
@@ -388,7 +389,7 @@ li {
   animation-name: modal_open;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
-  z-index: 15;
+  z-index: 300;
 }
 .card__close {
   fill: #3761a8;
