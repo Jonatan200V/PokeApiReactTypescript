@@ -85,9 +85,12 @@ export const AppContextStore = ({ children }: context) => {
     const pokemonModalCard = allPokemon.findIndex(
       (pokemon) => pokemon.id === id
     );
+    console.log(id, name);
     if (name === 'next') {
+      if (id === 100) return;
       return setCardModal([allPokemon[pokemonModalCard + 1]]);
     }
+    if (id === 1) return;
     return setCardModal([allPokemon[pokemonModalCard - 1]]);
   };
   const addTypes = () => {
