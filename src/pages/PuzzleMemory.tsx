@@ -139,38 +139,34 @@ const PuzzleMemory = () => {
     return setGame({
       view: '',
       result: '',
-      gameOver: true,
+      gameOver: false,
     });
   };
+  function shuffle(array: pokemon[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const indexRadom = Math.floor(Math.random() * (i + 1));
+      [array[i], array[indexRadom]] = [array[indexRadom], array[i]];
+    }
+  }
+  shuffle(pokemos);
   return (
     <div className='memory'>
       <div className='memory__container'>
-        {pokemos
-          .sort(
-            (a, b) =>
-              Math.ceil(b.atk.stat * Math.random()) -
-              (Math.ceil(a.atk.stat * Math.random()) -
-                Math.ceil(Math.random() - 0.6))
-          )
-          .map((pokemon, index) => (
-            <div
-              key={index}
-              ref={divRef}
-              className='memory__div'
-              onClick={(evt) => handleClick(pokemon.name, index, evt)}
-            >
-              <img
-                className='memory__img'
-                src={pokemon.images}
-                alt={pokemon.name}
-              />
-              <img
-                className='memory__back'
-                src='../assets/pokeball.png'
-                alt=''
-              />
-            </div>
-          ))}
+        {pokemos.map((pokemon, index) => (
+          <div
+            key={index}
+            ref={divRef}
+            className='memory__div'
+            onClick={(evt) => handleClick(pokemon.name, index, evt)}
+          >
+            <img
+              className='memory__img'
+              src={pokemon.images}
+              alt={pokemon.name}
+            />
+            <img className='memory__back' src='../assets/pokeball.png' alt='' />
+          </div>
+        ))}
       </div>
       <div className='memory__decrementador'>
         <Decrementador

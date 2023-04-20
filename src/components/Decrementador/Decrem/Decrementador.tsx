@@ -21,23 +21,25 @@ const Decrementador = ({
   newGame,
   gameOver,
 }: DecrementadorProps) => {
-  const [count, setCount] = useState<DecrementadorState['counter']>(61);
+  const [count, setCount] = useState<DecrementadorState['counter']>(60);
   useEffect(() => {
     if (count === 0) {
       complete(count);
     }
     if (!gameOver && count > 0) {
-      setTimeout(() => setCount((oldCount) => oldCount - 1), 1000);
+      const timeId = setTimeout(
+        () => setCount((oldCount) => oldCount - 1),
+        1000
+      );
+      return () => clearInterval(timeId);
     }
-  }, [count]);
+  }, [count, newGame]);
   useEffect(() => {
-    setCount(61);
+    setCount(60);
   }, [newGame]);
   return (
     <div className='decrementador'>
-      <div className='decrementador__count'>
-        {count < 0 ? 0 : count === 61 ? 60 : count}
-      </div>
+      <div className='decrementador__count'>{count}</div>
       {asertions === false ? (
         ''
       ) : (
