@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { nextPrev, pokemon } from '../types/types';
 import { isNumber } from '../utils/types/types';
+import { shuffle } from '../utils/sufle';
 interface PokemonStore {
   addPokemon: (poke: pokemon[]) => void;
   changeCardModal: (id: number, name: nextPrev) => void;
@@ -10,9 +11,11 @@ interface PokemonStore {
     divRef: HTMLDivElement | null
   ) => void;
   addTypes: () => void;
+  pokemonsMemory: () => void;
   allPokemon: pokemon[];
   modal: boolean;
   cardModal: pokemon[];
+  memoryPoke: pokemon[];
   types: string[];
   typesFilters: string[];
   pokemonsFilters: pokemon[];
@@ -30,12 +33,14 @@ interface context {
 const contextApp: PokemonStore = {
   allPokemon: [],
   pokemonsFilters: [],
+  memoryPoke: [],
   modal: true,
   cardModal: [],
   types: [],
   typesFilters: [],
   changeCardModal: (id: number, name: nextPrev) => {},
   addPokemon: (poke: pokemon[]) => {},
+  pokemonsMemory: () => {},
   handleClikcOpenModal: (
     id: number | boolean,
     divRef: HTMLDivElement | null
@@ -49,6 +54,7 @@ const AppContext = createContext(contextApp);
 export const AppContextStore = ({ children }: context) => {
   const [allPokemon, setAllPokemon] = useState<ContextState['allPokemon']>([]);
   const [cardModal, setCardModal] = useState<ContextState['cardModal']>([]);
+  const [memoryPoke, setMemoryPoke] = useState<ContextState['allPokemon']>([]);
   const [modal, setModal] = useState<ContextState['modal']>(false);
   const [types, setTypes] = useState<ContextState['types']>([]);
   const [typesFilters, setTypesFilters] = useState<ContextState['filterTypes']>(
@@ -61,6 +67,25 @@ export const AppContextStore = ({ children }: context) => {
     setAllPokemon((poke) => poke.concat(newPoke));
   };
 
+  const existPokemonMemory = (poke: pokemon, pokeMemo: pokemon[]): boolean => {
+    const exist = pokeMemo.find((pokemon) => pokemon.name === poke.name);
+    if (exist) return true;
+    return false;
+  };
+  const pokemonsMemory = (): void => {
+    const pokeMemory: pokemon[] = [];
+    setMemoryPoke(() => []);
+
+    while (pokeMemory.length < 8) {
+      const poke = allPokemon[Math.floor(Math.random() * allPokemon.length)];
+      if (existPokemonMemory(poke, pokeMemory)) {
+      } else {
+        pokeMemory.push(poke);
+      }
+    }
+    const pokemonsShuffle = shuffle([...pokeMemory, ...pokeMemory]);
+    setMemoryPoke(() => pokemonsShuffle);
+  };
   const handleClikcOpenModal = (
     id: number | boolean,
     divRef: HTMLDivElement | null
@@ -85,7 +110,6 @@ export const AppContextStore = ({ children }: context) => {
     const pokemonModalCard = allPokemon.findIndex(
       (pokemon) => pokemon.id === id
     );
-    console.log(id, name);
     if (name === 'next') {
       if (id === 100) return;
       return setCardModal([allPokemon[pokemonModalCard + 1]]);
@@ -99,13 +123,10 @@ export const AppContextStore = ({ children }: context) => {
       allTypes.push(...pokemon.typesAll);
     });
     let hash: any = {};
-    console.log(allPokemon);
-    console.log(allTypes);
 
     const TYPESALL = allTypes.filter((type) =>
       hash[type] ? false : (hash[type] = true)
     );
-    console.log(TYPESALL);
     setTypes(TYPESALL);
   };
   const filterTypes = (type: string): void => {
@@ -148,6 +169,8 @@ export const AppContextStore = ({ children }: context) => {
     <AppContext.Provider
       value={{
         allPokemon,
+        memoryPoke,
+        pokemonsMemory,
         pokemonsFilters,
         modal,
         cardModal,

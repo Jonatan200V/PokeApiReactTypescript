@@ -4,16 +4,17 @@ import ModalResult from '../components/ModalResult/ModalResult';
 import PokeOptions from '../components/PokeOptions/PokeOptions';
 import { useAppContext } from '../hooks/useAppContext';
 import { pokemon } from '../types/types';
+interface Assertions {
+  game: string;
+  view: boolean;
+  asertion: number;
+  errors: number;
+  gameOver: boolean;
+}
 interface PuzzleState {
   allSwitch: boolean;
   countSet: number;
-  asertions: {
-    game: string;
-    view: string;
-    asertion: number;
-    errors: number;
-    gameOver: boolean;
-  };
+  asertions: Assertions;
 }
 const Puzzle = () => {
   const { allPokemon } = useAppContext();
@@ -22,7 +23,7 @@ const Puzzle = () => {
     game: '',
     asertion: 0,
     errors: 0,
-    view: '',
+    view: false,
     gameOver: false,
   });
   const [game, setGame] = useState<PuzzleState['allSwitch']>(false);
@@ -51,7 +52,7 @@ const Puzzle = () => {
         return setAsertions({
           ...asertions,
           game: 'Has Ganado',
-          view: '1',
+          view: true,
           gameOver: true,
         });
       }
@@ -66,7 +67,7 @@ const Puzzle = () => {
       return setAsertions({
         ...asertions,
         game: 'Has perdido',
-        view: '1',
+        view: true,
       });
     }
   };
@@ -77,15 +78,15 @@ const Puzzle = () => {
       game: '',
       asertion: 0,
       errors: 0,
-      view: '',
+      view: false,
       gameOver: false,
     });
   };
-  const complete = (state: number) => {
+  const complete = () => {
     return setAsertions({
       ...asertions,
       game: 'Has perdido',
-      view: '1',
+      view: true,
       gameOver: true,
     });
   };
@@ -93,6 +94,7 @@ const Puzzle = () => {
     <div className='puzzle'>
       <div className=''>
         <ModalResult
+          pokemonPuzzle={() => {}}
           content={asertions.game}
           view={asertions.view}
           newGame={newGame}

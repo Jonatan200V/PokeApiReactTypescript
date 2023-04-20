@@ -3,15 +3,21 @@ import ReactDom from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 interface ModalResultProps {
   content: string;
-  view: string;
+  view: boolean;
   newGame: () => void;
+  pokemonPuzzle: () => void;
 }
-const ModalResult = ({ content, view = '', newGame }: ModalResultProps) => {
+const ModalResult = ({
+  content,
+  view = false,
+  newGame,
+  pokemonPuzzle,
+}: ModalResultProps) => {
   const div = document.getElementById('div') as HTMLDivElement;
   const navigate = useNavigate();
-  const handleClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = evt.currentTarget;
-    if (name === 'yes') {
+  const handleClick = (game: boolean) => {
+    if (game) {
+      pokemonPuzzle();
       return newGame();
     }
     navigate('/');
@@ -20,25 +26,25 @@ const ModalResult = ({ content, view = '', newGame }: ModalResultProps) => {
     <div
       className='portal'
       style={{
-        visibility: `${view === '' ? 'hidden' : 'visible'}`,
-        transform: `${view === '' ? 'scale(0)' : 'scale(1)'}`,
+        visibility: `${view ? 'visible' : 'hidden'}`,
+        transform: `${view ? 'scale(1)' : 'scale(0)'}`,
       }}
     >
       <div className='portal__div'>
         <div
           className='portal__modal'
           style={{
-            color: `${view === 'Has perdido' ? 'red' : 'green'}`,
+            color: `${view ? 'green' : 'red'}`,
           }}
         >
           {content}
         </div>
-        <div className='portal__info'>¿Do you want to play again?</div>
+        <div className='portal__info'>¿Quieres volver a jugar?</div>
         <div>
-          <button className='portal__button' name='yes' onClick={handleClick}>
-            Yes
+          <button className='portal__button' onClick={() => handleClick(true)}>
+            Si
           </button>
-          <button className='portal__button' name='no' onClick={handleClick}>
+          <button className='portal__button' onClick={() => handleClick(false)}>
             No
           </button>
         </div>

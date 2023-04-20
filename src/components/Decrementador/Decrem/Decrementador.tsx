@@ -3,25 +3,25 @@ import { useEffect, useState } from 'react';
 interface DecrementadorState {
   counter: number;
 }
+interface Hits {
+  game: string;
+  asertion: number;
+  errors: number;
+}
 interface DecrementadorProps {
-  asertions:
-    | {
-        game: string;
-        asertion: number;
-        errors: number;
-      }
-    | false;
+  asertions: Hits | false;
   complete: (time: number) => void;
   gameOver: boolean;
   newGame: boolean;
 }
+const min: number = 60;
 const Decrementador = ({
   asertions,
   complete,
   newGame,
   gameOver,
 }: DecrementadorProps) => {
-  const [count, setCount] = useState<DecrementadorState['counter']>(60);
+  const [count, setCount] = useState<DecrementadorState['counter']>(min);
   useEffect(() => {
     if (count === 0) {
       complete(count);
@@ -33,10 +33,11 @@ const Decrementador = ({
       );
       return () => clearInterval(timeId);
     }
-  }, [count, newGame]);
+    console.log({ newGame });
+  }, [count, newGame, gameOver]);
   useEffect(() => {
-    setCount(60);
-  }, [newGame]);
+    setCount(min);
+  }, [newGame, gameOver]);
   return (
     <div className='decrementador'>
       <div className='decrementador__count'>{count}</div>
